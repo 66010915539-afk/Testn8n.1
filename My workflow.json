@@ -1,0 +1,241 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "1F1JjFdi4c4aeyxO_TGDQLasfg6TvAawmXhQkmBlgTg0",
+          "mode": "list",
+          "cachedResultName": "แบบฟอร์มประเมินสุขภาพก่อนการเทรน (Responses)",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1F1JjFdi4c4aeyxO_TGDQLasfg6TvAawmXhQkmBlgTg0/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1217295188,
+          "mode": "list",
+          "cachedResultName": "Form Responses 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1F1JjFdi4c4aeyxO_TGDQLasfg6TvAawmXhQkmBlgTg0/edit#gid=1217295188"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1184,
+        -192
+      ],
+      "id": "1f7761f1-5441-4b2e-93f4-00624534170f",
+      "name": "Google Sheets Trigger",
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "7IeImTkqO3rrvhvS",
+          "name": "Google Sheets Trigger account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "createFromText",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "17tU8ZiRz9u0mfodnaqj27ah9e1rYWkNF",
+          "mode": "list",
+          "cachedResultName": "5555",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/17tU8ZiRz9u0mfodnaqj27ah9e1rYWkNF"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        -624,
+        -192
+      ],
+      "id": "1963544a-d993-4ebc-aba8-16515cef5baf",
+      "name": "Create file from text",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "lPp4bY0c797ZQ6qI",
+          "name": "Google Drive account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=คุณคือเทรนเนอร์ส่วนตัว ช่วยคำนวณและสรุปผลสุขภาพของลูกค้าตามข้อมูลนี้ :\nชื่อ : {{ $json[\"Name\"] }}\nเพศ : {{ $json[\"Gender\"] }}\nน้ำหนัก : {{ $json[\"Weight\"] }}\nส่วนสูง : {{ $json[\"Height\"] }}\nระดับกิจกรรม : {{ $json[\"Activity\"] }}\nเป้าหมาย : {{ $json[\"Goal\"] }}\nช่วยคำนวณ BMI, ประมาณค่า TDEE",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        -976,
+        -192
+      ],
+      "id": "483fa1cb-5000-482a-b130-8f5f28d8c346",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -1120,
+        16
+      ],
+      "id": "34987d51-8ce1-4694-8e71-fef97cbbbfa2",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "DabWj6xvrev8X3w1",
+          "name": "Google Gemini(PaLM) Api account 4"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1F1JjFdi4c4aeyxO_TGDQLasfg6TvAawmXhQkmBlgTg0",
+          "mode": "list",
+          "cachedResultName": "แบบฟอร์มประเมินสุขภาพก่อนการเทรน (Responses)",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1F1JjFdi4c4aeyxO_TGDQLasfg6TvAawmXhQkmBlgTg0/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1217295188,
+          "mode": "list",
+          "cachedResultName": "Form Responses 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1F1JjFdi4c4aeyxO_TGDQLasfg6TvAawmXhQkmBlgTg0/edit#gid=1217295188"
+        },
+        "filtersUI": {
+          "values": [
+            {}
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -416,
+        -192
+      ],
+      "id": "0a60d8d3-0694-40b7-9cc9-a225955147b4",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "QGQ5mofn3ihLhfmF",
+          "name": "Google Sheets account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "subject": "ออกกำลังกายกันค้าาาา",
+        "emailType": "text",
+        "message": "hiiiiiiiii",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        -208,
+        -192
+      ],
+      "id": "849aad3e-77c2-4721-bdbd-2af6e159e841",
+      "name": "Send a message",
+      "webhookId": "b36e37ce-d7d5-4a9d-8c47-c40970afb119",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "NFVNBvOg16iJxYxH",
+          "name": "Gmail account 3"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Sheets Trigger": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Create file from text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create file from text": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "270e670f-f10d-4aaa-b75f-3dbb4f8a34d2",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "6865622dc3c2eeff57750bded8a3f4ee4da8318c6315e68fe1f6a65c696a1560"
+  },
+  "id": "dlesoytyPGgkk9E5",
+  "tags": []
+}
